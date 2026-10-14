@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+:root { --teal:#063d43; --gold:#c79a42; --cream:#f6eddd; }
+* { box-sizing: border-box; }
+html, body { margin:0; min-height:100%; background:#071e25; font-family:"Cairo",Tahoma,Arial,sans-serif; }
+body { display:flex; justify-content:center; }
+.site-shell { width:min(100%, 560px); min-height:100vh; background:#092d34; position:relative; overflow:hidden; }
+.page { position:relative; width:100%; min-height:100vh; display:flex; align-items:flex-start; justify-content:center; }
+.hidden { display:none; }
+.artwork { width:100%; height:auto; display:block; }
+.cover-page { align-items:center; }
+.cover-art { width:100%; height:100vh; object-fit:cover; object-position:center; }
+.invitation-page { align-items:flex-start; }
+.invitation-art { width:100%; height:auto; }
+.hotspot { z-index:5; position:absolute; display:block; border:0; background:transparent; cursor:pointer; border-radius:40px; outline-offset:4px; }
+.hotspot:focus-visible { outline:3px solid #ffe2a0; }
+.open-hotspot { position:absolute; z-index:10; left:25%; width:50%; top:64%; min-height:58px; border:1px solid #e2bd69; border-radius:32px; background:linear-gradient(135deg,#0b6263,#06383e); color:#fff3d5; box-shadow:0 4px 18px #0007,inset 0 0 0 2px #ffffff18; font:700 20px "Cairo",Tahoma,sans-serif; cursor:pointer; }\n.open-hotspot:active { transform:scale(.97); }\n.open-hotspot:focus-visible { outline:3px solid #ffe2a0; outline-offset:4px; }
+.location-hotspot { left:17%; width:25%; top:48%; height:7%; }
+.rsvp-hotspot { left:29%; right:29%; top:70%; height:7%; }
+.video-hotspot { left:19%; width:24%; top:80%; height:7%; }
+.photos-hotspot { left:39%; width:23%; top:80%; height:7%; }
+.share-hotspot { right:17%; width:25%; top:80%; height:7%; }
+.accessibility-label { position:absolute; bottom:12px; background:rgba(3,35,39,.8); color:#fff4dc; padding:7px 14px; border-radius:20px; font-size:12px; }
+.back-button { position:relative; position:absolute; bottom:12px; left:50%; transform:translateX(-50%); border:1px solid var(--gold); background:var(--teal); color:#fff1d5; padding:9px 18px; border-radius:22px; font:600 13px "Cairo",sans-serif; cursor:pointer; }
+.dialog { border:1px solid var(--gold); border-radius:20px; max-width:calc(100% - 32px); width:380px; padding:26px; background:#fff8eb; color:#162d2e; box-shadow:0 20px 70px #0008; }
+.dialog::backdrop { background:#001519bb; backdrop-filter:blur(4px); }
+.dialog h2 { margin:0 0 8px; color:#075057; }
+.dialog p { line-height:1.7; }
+.dialog label { display:block; margin:12px 0 5px; font-weight:700; }
+.dialog input, .dialog select { width:100%; padding:11px; border:1px solid #cbbd9e; border-radius:10px; background:white; font:inherit; }
+.submit-button { margin-top:16px; width:100%; padding:11px; background:var(--teal); color:white; border:1px solid var(--gold); border-radius:12px; font:700 15px "Cairo",sans-serif; cursor:pointer; }
+.close-dialog { position:absolute; left:14px; top:10px; border:0; background:transparent; font-size:27px; cursor:pointer; color:#604a25; }
+.message { color:#075057; font-weight:700; }
+@media (min-width:561px) { .cover-art { height:auto; min-height:100vh; object-fit:cover; } }
+
+
+/* Floating, sparkling pollen particles: visible only on the second page */
+.invitation-page { overflow:hidden; }
+.pollen-layer {
+  position:absolute; inset:0; overflow:hidden; pointer-events:none;
+  z-index:3; contain:strict;
+}
+.pollen-particle {
+  position:absolute; bottom:-24px; left:var(--x);
+  width:var(--size); height:var(--size); border-radius:50%;
+  background:radial-gradient(circle, #fffef0 0%, #ffe9a6 32%, #d8a842 58%, transparent 75%);
+  box-shadow:0 0 5px 2px rgba(255,226,137,.62), 0 0 13px 3px rgba(255,246,203,.28);
+  opacity:0; animation: pollen-float var(--duration) linear var(--delay) infinite;
+}
+.pollen-particle::after {
+  content:""; position:absolute; inset:-2px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,235,.95), transparent 70%);
+  animation:pollen-twinkle 1.6s ease-in-out infinite alternate;
+}
+@keyframes pollen-float {
+  0% { transform:translate3d(0,0,0) scale(.55) rotate(0); opacity:0; }
+  12% { opacity:.85; }
+  48% { transform:translate3d(var(--drift),-48vh,0) scale(1) rotate(130deg); opacity:.8; }
+  82% { opacity:.65; }
+  100% { transform:translate3d(calc(var(--drift) * -.45),-105vh,0) scale(.25) rotate(280deg); opacity:0; }
+}
+@keyframes pollen-twinkle {
+  from { opacity:.35; transform:scale(.7); }
+  to { opacity:1; transform:scale(1.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pollen-particle, .pollen-particle::after { animation:none !important; }
+  .pollen-particle { opacity:.45; }
+}
+
+
+/* Mobile alignment fix: anchor clickable areas to the actual artwork height. */
+.invitation-page { display:block !important; position:relative; min-height:0 !important; height:auto !important; overflow:hidden; }
+.invitation-page > .artwork { display:block; width:100%; height:auto; }
+.invitation-page > .hotspot { z-index:6; }
+.invitation-page > .pollen-layer { z-index:3; }
+
+/* One visible cover button is printed in cover.png; this is only its invisible click target. */
+.cover-page .open-hotspot {
+  position:absolute; z-index:10; left:29%; width:42%; top:61%; height:8%;
+  min-height:0; padding:0; border:0; border-radius:40px;
+  background:transparent; color:transparent; box-shadow:none; font-size:0;
+  cursor:pointer; transform:none;
+}
+.cover-page .open-hotspot:active { transform:scale(.98); }
+
+
+
+
+/* Final alignment: keep the invitation artwork at its natural aspect ratio so invisible links sit on the illustrated buttons, not the small “اضغط هنا” captions. */
+html, body { min-height:100%; height:auto; background:#092d34; }
+.site-shell { min-height:0; }
+.invitation-page { display:block !important; position:relative; min-height:0 !important; height:auto !important; overflow:hidden; }
+.invitation-page > .invitation-art { display:block; width:100%; height:auto !important; object-fit:contain; object-position:top center; }
+.invitation-page > .hotspot { z-index:6; }
+.invitation-page > .pollen-layer { z-index:3; }
+/* Button hit areas aligned to the visible controls in invitation.png. */
+.location-hotspot { left:16%; width:27%; top:47%; height:6.5%; }
+.rsvp-hotspot { left:29%; right:29%; top:67.5%; height:6.5%; }
+.video-hotspot { left:18%; width:25%; top:77.5%; height:7%; }
+.photos-hotspot { left:39%; width:23%; top:77.5%; height:7%; }
+.share-hotspot { right:16%; width:26%; top:77.5%; height:7%; }

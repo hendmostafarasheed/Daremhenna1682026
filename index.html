@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#063d43">
+  <title>حنة دارم | الدعوة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <audio id="hennaSong" src="henna-song.mp3" preload="auto" loop></audio>
+
+  <main class="site-shell">
+    <section id="coverPage" class="page cover-page" aria-label="الصفحة الأولى">
+      <img class="artwork cover-art" src="cover.png" alt="تصميم دعوة حنة دارم">
+      <button id="openInvitation" class="open-hotspot" aria-label="فتح الدعوة" title="فتح الدعوة"></button>
+      <div class="accessibility-label">اضغط على زر «فتح الدعوة» للدخول</div>
+    </section>
+
+    <section id="invitationPage" class="page invitation-page hidden" aria-label="تفاصيل الدعوة">
+      <div id="pollenLayer" class="pollen-layer" aria-hidden="true"></div>
+      <img class="artwork invitation-art" src="invitation.png" alt="تفاصيل دعوة حنة دارم">
+      <a class="hotspot location-hotspot" href="https://www.google.com/maps/search/?api=1&query=Four+Seasons+Hotel+Cairo+at+The+First+Residence" target="_blank" rel="noopener" aria-label="فتح الموقع على خرائط جوجل" title="الموقع على خرائط جوجل"></a>
+      <button id="rsvpButton" class="hotspot rsvp-hotspot" aria-label="تأكيد الحضور" title="تأكيد الحضور"></button>
+      <button id="videoButton" class="hotspot video-hotspot" aria-label="فيديو الحنة" title="فيديو الحنة"></button>
+      <button id="photosButton" class="hotspot photos-hotspot" aria-label="الصور" title="الصور - قريباً"></button>
+      <button id="shareButton" class="hotspot share-hotspot" aria-label="مشاركة الدعوة" title="مشاركة الدعوة"></button>
+      <button id="backButton" class="back-button">العودة للغلاف</button>
+    </section>
+  </main>
+
+  <dialog id="rsvpDialog" class="dialog">
+    <form method="dialog" id="rsvpForm">
+      <button class="close-dialog" aria-label="إغلاق">×</button>
+      <h2>تأكيد الحضور</h2>
+      <p>يسعدنا نعرف إذا كنت هتنورنا في حنة دارم ❤️</p>
+      <label for="guestName">الاسم</label>
+      <input id="guestName" name="guestName" placeholder="اكتب اسمك" required>
+      <label for="attendance">تأكيد الحضور</label>
+      <select id="attendance" name="attendance">
+        <option value="حاضر">بإذن الله هحضر</option>
+        <option value="اعتذار">معتذر عن الحضور</option>
+      </select>
+      <button class="submit-button" type="submit">تأكيد</button>
+      <p id="rsvpMessage" class="message" aria-live="polite"></p>
+    </form>
+  </dialog>
+  <script src="script.js"></script>
+</body>
+</html>
